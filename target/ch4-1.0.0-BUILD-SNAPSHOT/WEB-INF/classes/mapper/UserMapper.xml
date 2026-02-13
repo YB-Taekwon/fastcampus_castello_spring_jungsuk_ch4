@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ian.ch4.mapper.UserMapper">
+    <!-- 사용자 등록 -->
+    <insert id="save" parameterType="UserDto">
+        INSERT INTO user (username, password, name, email, birth, sns)
+        VALUES (#{username}, #{password}, #{name}, #{email}, #{birth}, #{sns})
+    </insert>
+
+    <!-- 단일 사용자 조회 -->
+    <select id="findByUsername" parameterType="String" resultType="UserDto">
+        SELECT *
+        FROM user
+        WHERE username = #{username}
+    </select>
+
+    <!-- 사용자 수정 -->
+    <update id="update" parameterType="UserDto">
+        UPDATE user
+        SET password = #{password},
+            email    = #{email},
+            sns= #{sns}
+        WHERE username = #{username}
+    </update>
+
+    <!-- 단일 사용자 삭제 -->
+    <delete id="deleteByUsername" parameterType="String">
+        DELETE
+        FROM user
+        WHERE username = #{username}
+    </delete>
+</mapper>
