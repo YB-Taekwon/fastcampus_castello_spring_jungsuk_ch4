@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <title>게시판 만들기</title>
     <link rel="stylesheet" href="<c:url value='/resources/css/menu.css'/>">
-    <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/css/boardList.css'/>">
 </head>
 <body>
 <div id="menu">
