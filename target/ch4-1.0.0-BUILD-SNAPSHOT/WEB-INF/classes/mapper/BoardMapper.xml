@@ -19,21 +19,38 @@
     <select id="findAll" resultType="BoardDto">
         SELECT *
         FROM board
+        ORDER BY board_id DESC, created_at DESC
     </select>
 
     <!-- 게시글 수정 -->
     <update id="update" parameterType="BoardDto">
         UPDATE board
-        SET title      = #{title},
-            content    = #{content},
-            writer     = #{writer}
+        SET title   = #{title},
+            content = #{content},
+            writer  = #{writer}
         WHERE board_id = #{boardId}
     </update>
 
     <!-- 단일 게시글 삭제 -->
-    <delete id="deleteById" parameterType="Long">
+    <delete id="delete" parameterType="BoardDto">
         DELETE
         FROM board
         WHERE board_id = #{boardId}
+          and writer = #{writer}
     </delete>
+
+    <!-- 총 게시글 수 조회 (페이징) -->
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM board
+    </select>
+
+    <!-- 페이지 조회 (페이징) -->
+    <select id="getPage" parameterType="Map" resultType="BoardDto">
+        SELECT *
+        FROM board
+        ORDER BY board_id DESC, created_at DESC
+        LIMIT #{offset}, #{pageSize}
+
+    </select>
 </mapper>

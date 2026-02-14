@@ -19,6 +19,7 @@
     <select id="findAll" resultType="BoardDto">
         SELECT *
         FROM board
+        ORDER BY board_id DESC, created_at DESC
     </select>
 
     <!-- 게시글 수정 -->
@@ -42,5 +43,14 @@
     <select id="count" resultType="int">
         SELECT COUNT(*)
         FROM board
+    </select>
+
+    <!-- 페이지 조회 (페이징) -->
+    <select id="getPage" parameterType="Map" resultType="BoardDto">
+        SELECT *
+        FROM board
+        ORDER BY board_id DESC, created_at DESC
+        LIMIT #{offset}, #{pageSize}
+
     </select>
 </mapper>

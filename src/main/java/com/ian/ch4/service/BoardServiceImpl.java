@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +42,17 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void delete(BoardDto boardDto) {
         boardDao.delete(boardDto);
+    }
+
+    // 총 게시글 수 조회 (페이징)
+    @Override
+    public int count() {
+        return boardDao.count();
+    }
+
+    // 페이지 조회 (페이징)
+    @Override
+    public List<BoardDto> getPage(Map<String, Integer> params) {
+        return boardDao.getPage(params);
     }
 }

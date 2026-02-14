@@ -21,6 +21,7 @@
     </div>
     <input type="text" name="username" placeholder="아이디" autofocus>
     <input type="password" name="password" placeholder="비밀번호">
+    <input type="hidden" name="referer" value="${param.referer}">
     <button>로그인</button>
     <div>
         <label><input type="checkbox" name="rememberId"> 아이디 기억</label> |

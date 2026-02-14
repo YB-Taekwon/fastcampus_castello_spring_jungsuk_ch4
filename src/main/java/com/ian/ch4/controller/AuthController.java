@@ -55,8 +55,8 @@ public class AuthController {
     // 로그인 처리
     @PostMapping("/login")
     public String login(
-            @RequestParam("username") String username, String password, String referer, boolean rememberId,
-            HttpServletRequest request, HttpServletResponse response
+            @RequestParam("username") String username, String password, String referer,
+            boolean rememberId, HttpServletRequest request, HttpServletResponse response
     ) {
         // 1. 유효성 검사 -> 아이디 및 비밀번호가 다를 경우 로그인 화면으로 리다이렉트
         if (!loginCheck(username, password)) {

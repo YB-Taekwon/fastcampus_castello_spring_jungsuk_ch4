@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -47,5 +48,17 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public void delete(BoardDto boardDto) {
         session.delete(namespace + "delete", boardDto);
+    }
+
+    // 총 게시글 수 조회 (페이징)
+    @Override
+    public int count() {
+        return session.selectOne(namespace + "count");
+    }
+
+    // 페이지 조회 (페이징)
+    @Override
+    public List<BoardDto> getPage(Map<String, Integer> params) {
+        return session.selectList(namespace + "getPage", params);
     }
 }
