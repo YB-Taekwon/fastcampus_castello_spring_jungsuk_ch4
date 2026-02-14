@@ -1,6 +1,7 @@
 package com.ian.ch4.dao;
 
 import com.ian.ch4.domain.BoardDto;
+import com.ian.ch4.domain.SearchCondition;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -60,5 +61,17 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public List<BoardDto> getPage(Map<String, Integer> params) {
         return session.selectList(namespace + "getPage", params);
+    }
+
+    // 게시글 검색
+    @Override
+    public List<BoardDto> search(SearchCondition searchCondition) {
+        return session.selectList(namespace + "search", searchCondition);
+    }
+
+    // 검색 결과 수 조회 (페이징)
+    @Override
+    public int searchCount(SearchCondition searchCondition) {
+        return session.selectOne(namespace + "searchCount", searchCondition);
     }
 }

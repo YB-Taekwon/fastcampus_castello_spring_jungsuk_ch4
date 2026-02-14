@@ -49,6 +49,23 @@
         FROM board
         ORDER BY board_id DESC, created_at DESC
         LIMIT #{offset}, #{pageSize}
+    </select>
 
+    <!-- 게시글 검색 -->
+    <select id="search" parameterType="SearchCondition" resultType="BoardDto">
+        SELECT *
+        FROM board
+        WHERE TRUE
+          AND title LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY board.board_id DESC, created_at DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <!-- 검색 결과 수 조회 -->
+    <select id="searchCount" parameterType="SearchCondition" resultType="int">
+        SELECT COUNT(*)
+        FROM board
+        WHERE TRUE
+          AND title LIKE CONCAT('%', #{keyword}, '%')
     </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.ian.ch4.dao;
 
 import com.ian.ch4.domain.BoardDto;
+import com.ian.ch4.domain.SearchCondition;
 
 import java.util.List;
 import java.util.Map;
@@ -26,4 +27,10 @@ public interface BoardDao {
 
     // 페이지 조회 (페이징)
     List<BoardDto> getPage(Map<String, Integer> params);
+
+    // 게시글 검색
+    List<BoardDto> search(SearchCondition searchCondition);
+
+    // 검색 결과 수 조회 (페이징)
+    int searchCount(SearchCondition searchCondition);
 }

@@ -2,6 +2,7 @@ package com.ian.ch4.service;
 
 import com.ian.ch4.dao.BoardDao;
 import com.ian.ch4.domain.BoardDto;
+import com.ian.ch4.domain.SearchCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -54,5 +55,17 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardDto> getPage(Map<String, Integer> params) {
         return boardDao.getPage(params);
+    }
+
+    // 게시글 검색
+    @Override
+    public List<BoardDto> search(SearchCondition searchCondition) {
+        return boardDao.search(searchCondition);
+    }
+
+    // 검색 결과 수 조회 (페이징)
+    @Override
+    public int searchCount(SearchCondition searchCondition) {
+        return boardDao.searchCount(searchCondition);
     }
 }

@@ -4,11 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
+        <setting name="logImpl" value="SLF4J"/>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
 
     <typeAliases>
         <typeAlias alias="UserDto" type="com.ian.ch4.domain.UserDto"/>
         <typeAlias alias="BoardDto" type="com.ian.ch4.domain.BoardDto"/>
+        <typeAlias alias="SearchCondition" type="com.ian.ch4.domain.SearchCondition"/>
     </typeAliases>
 </configuration>

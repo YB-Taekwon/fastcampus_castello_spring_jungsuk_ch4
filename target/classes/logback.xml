@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+
+		<encoder>
+			<pattern>
+				%d{HH:mm:ss.SSS} %highlight(%-5level) %cyan(%logger{40}) - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<!-- MyBatis SQL/파라미터 로그 -->
+	<logger name="com.ian.ch4.mapper" level="DEBUG"/>
+	<logger name="org.mybatis" level="DEBUG"/>
+	<logger name="org.mybatis.spring" level="DEBUG"/>
+
+	<root level="INFO">
+		<appender-ref ref="CONSOLE"/>
+	</root>
+
+</configuration>
