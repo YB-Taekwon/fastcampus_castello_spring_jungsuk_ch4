@@ -1,0 +1,121 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ page session="false" %>
+<c:set var="loginId"
+       value="${pageContext.request.getSession(false)==null ? '' : pageContext.request.session.getAttribute('username')}"/>
+<c:set var="loginOutLink" value="${loginId=='' ? '/auth/login' : '/auth/logout'}"/>
+<c:set var="loginOut" value="${loginId=='' ? 'LogIn' : 'ID='+=loginId}"/>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 만들기</title>
+    <link rel="stylesheet" href="<c:url value='/resources/css/menu.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/css/board.css'/>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li id="logo">게시판 만들기</li>
+        <li><a href="<c:url value='/'/>">Home</a></li>
+        <li><a href="<c:url value='/boards'/>">Board</a></li>
+        <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
+        <li><a href="<c:url value='/auth/register'/>">JoinUs</a></li>
+        <li><a href=""><i class="fa fa-search"></i></a></li>
+    </ul>
+</div>
+<div style="text-align:center">
+    <div class="container">
+        <h2 class="writing-header">게시글 ${mode eq "new" ? " 작성" : " 조회"}</h2>
+        <form id="form" class="frm" method="post"
+              action='${mode eq "new" ? "/boards/create" : "/boards/" += board.boardId += "/update"}'>
+            <input type="hidden" name="boardId" value="${board.boardId}"/>
+
+            <input name="title" type="text" value="${board.title}"
+                   placeholder="  제목을 입력해 주세요." ${mode == "new" ? "" : "readonly='readonly'"}/>
+            <br>
+            <textarea name="content" rows="20"
+                      placeholder=" 내용을 입력해 주세요."
+            ${mode == "new" ? "" : "readonly='readonly'"}>${board.content}</textarea>
+            <br>
+
+            <c:if test="${mode eq 'new'}">
+                <button type="button" id="writeBtn" class="btn btn-write"><i class="fa fa-pencil"></i> 등록</button>
+            </c:if>
+            <c:if test="${board.writer eq loginId}">
+                <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i> 수정</button>
+                <button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i> 삭제</button>
+            </c:if>
+            <button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i> 목록</button>
+        </form>
+    </div>
+    <script>
+        $(document).ready(function () {
+            let formCheck = function () {
+                let form = document.getElementById("form");
+                if (form.title.value == "") {
+                    alert("제목을 입력해 주세요.");
+                    form.title.focus();
+                    return false;
+                }
+
+                if (form.content.value == "") {
+                    alert("내용을 입력해 주세요.");
+                    form.content.focus();
+                    return false;
+                }
+                return true;
+            }
+
+            $("#writeNewBtn").on("click", function () {
+                location.href = "<c:url value='/boards/create'/>";
+            });
+
+            $("#writeBtn").on("click", function () {
+                let form = $("#form");
+                form.attr("action", "<c:url value='/boards/create'/>");
+                form.attr("method", "post");
+
+                if (formCheck())
+                    form.submit();
+            });
+
+            $("#modifyBtn").on("click", function () {
+                let form = $("#form");
+                let readonly = $("input[name=title]", "#form").attr('readonly');
+
+                // 1. 읽기 상태이면, 수정 상태로 변경
+                if (readonly != undefined) {
+                    $(".writing-header").html("게시글 수정");
+                    $("input[name=title]", "#form").attr('readonly', false);
+                    $("textarea", "#form").attr('readonly', false);
+                    $("#modifyBtn").html("<i class='fa fa-pencil'></i> 등록");
+                    return;
+                }
+
+                // 2. 수정 상태이면, 수정된 내용을 서버로 전송
+                form.attr("action", "<c:url value='/boards/${board.boardId}/update'/>");
+                form.attr("method", "post");
+                if (formCheck())
+                    form.submit();
+            });
+
+            $("#removeBtn").on("click", function () {
+                if (!confirm("정말로 삭제하시겠습니까?")) return;
+
+                let form = $("#form");
+                form.attr("action", "<c:url value='/boards/${board.boardId}/delete?page=${page}&pageSize=${pageSize}'/>");
+                form.attr("method", "post");
+                form.submit();
+            });
+
+            $("#listBtn").on("click", function () {
+                location.href = "<c:url value='/boards?page=${page}&pageSize=${pageSize}'/>";
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

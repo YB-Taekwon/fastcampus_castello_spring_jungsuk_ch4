@@ -10,6 +10,7 @@
     <title>게시판 만들기</title>
     <link rel="stylesheet" href="<c:url value='/resources/css/menu.css'/>">
     <link rel="stylesheet" href="<c:url value='/resources/css/boardList.css'/>">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css">
 </head>
 <body>
 <div id="menu">
@@ -34,7 +35,9 @@
         <c:forEach var="board" items="${boardList}">
             <tr>
                 <td class="boardId">${board.boardId}</td>
-                <td class="title">${board.title}</td>
+                <td class="title"><a
+                        href=" <c:url value="/boards/${board.boardId}?page=${page}&pageSize=${pageSize}"/>">${board.title}</a>
+                </td>
                 <td class="writer">${board.writer}</td>
                 <td class="createdAt">${board.createdAt}</td>
                 <td class="viewCount">${board.viewCount}</td>
@@ -43,9 +46,9 @@
     </table>
 </div>
 <br>
-<div>
+<div style="text-align:center">
     <c:if test="${pageHandler.showPrev}">
-        <a href="<c:url value="/boards?page=${i - 1}&pageSize=${pageHandler.pageSize}"/>">&lt;</a>
+        <a href="<c:url value="/boards?page=${pageHandler.startPage - 1}&pageSize=${pageHandler.pageSize}"/>">&lt;</a>
     </c:if>
     <c:forEach var="i" begin="${pageHandler.startPage}" end="${pageHandler.endPage}">
         <a href="<c:url value="/boards?page=${i}&pageSize=${pageHandler.pageSize}"/>">${i}</a>

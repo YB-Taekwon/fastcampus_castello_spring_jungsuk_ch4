@@ -19,7 +19,7 @@ public interface BoardDao {
     BoardDto update(BoardDto boardDto);
 
     // 단일 게시글 삭제
-    void delete(BoardDto boardDto);
+    void delete(Long boardId);
 
     // 총 게시글 수 조회 (페이징)
     int count();

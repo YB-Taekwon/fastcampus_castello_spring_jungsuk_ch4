@@ -105,7 +105,7 @@ td {
     color: rgb(53, 53, 53);
 }
 
-.no {
+.boardId {
     width: 150px;
 }
 
@@ -121,7 +121,7 @@ td.writer {
     text-align: left;
 }
 
-td.viewcnt {
+td.viewCount {
     text-align: right;
 }
 

@@ -40,8 +40,8 @@ public class BoardServiceImpl implements BoardService {
 
     // 단일 게시글 삭제
     @Override
-    public void delete(BoardDto boardDto) {
-        boardDao.delete(boardDto);
+    public void delete(Long boardId) {
+        boardDao.delete(boardId);
     }
 
     // 총 게시글 수 조회 (페이징)

@@ -46,8 +46,8 @@ public class BoardDaoImpl implements BoardDao {
 
     // 단일 게시글 삭제
     @Override
-    public void delete(BoardDto boardDto) {
-        session.delete(namespace + "delete", boardDto);
+    public void delete(Long boardId) {
+        session.delete(namespace + "delete", boardId);
     }
 
     // 총 게시글 수 조회 (페이징)
